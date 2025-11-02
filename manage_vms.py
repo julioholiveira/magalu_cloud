@@ -1,6 +1,5 @@
 import argparse
 import asyncio
-import json
 import os
 
 import httpx
@@ -11,7 +10,7 @@ load_dotenv()
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Gerencia VMs (exemplo)")
-    # Ação posiciona l (list, start, stop)
+    # Ação posicional (list, start, stop)
     parser.add_argument(
         "action",
         choices=["list", "start", "stop"],
