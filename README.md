@@ -8,8 +8,8 @@ consumir a API (ex.: listagem de instâncias) usando `httpx`. O objetivo deste R
 
 ## Pré-requisitos
 
-- Python 3.13+
-- pip
+- Python 3.14+
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - Acesso à API Magalu Cloud e uma chave de API (x-api-key)
 
 ## Instalação
@@ -21,17 +21,10 @@ git clone <repo-url> # ou já estar no diretório local
 cd magalu_cloud
 ```
 
-2. (Opcional) Crie um ambiente virtual e ative-o:
+2. Sincronize o ambiente virtual e instale as dependências:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-3. Instale dependências:
-
-```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 ## Configuração
@@ -52,19 +45,19 @@ O script principal é `manage_vms.py`. Os exemplos abaixo mostram como listar in
 - Listar instâncias:
 
 ```bash
-python manage_vms.py list --region br-se1
+uv run manage_vms.py list --region br-se1
 ```
 
 - Iniciar Instância (exemplo):
 
 ```bash
-python manage_vms.py start --region br-se1 -i <ID_DA_INSTANCIA>
+uv run manage_vms.py start --region br-se1 -i <ID_DA_INSTANCIA>
 ```
 
 - Desligar Instância:
 
 ```bash
-python manage_vms.py stop --region br-se1 -i <ID_DA_INSTANCIA>
+uv run manage_vms.py stop --region br-se1 -i <ID_DA_INSTANCIA>
 ```
 
 ## Contribuição
