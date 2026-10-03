@@ -41,7 +41,6 @@ class MagaluVMSnapshot:
         return response.json()
 
     def create_snapshot(self, snapshot_data: dict):
-        print(snapshot_data)
         response = httpx.post(
             f"{self.url}/snapshots", headers=self.set_headers(), json=snapshot_data
         )
