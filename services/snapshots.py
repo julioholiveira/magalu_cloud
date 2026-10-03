@@ -27,6 +27,13 @@ class MagaluVMSnapshot:
             return {"status": response.status_code, "message": response.text}
         return response.json()
 
+    def get_snapshot_by_name(self, name: str):
+            snapshots = self.list_snapshots()
+            for snapshot in snapshots.get("snapshots", []):
+                if snapshot.get("name") == name:
+                    return snapshot
+            return None
+
     def list_snapshots(self):
         response = httpx.get(f"{self.url}/snapshots", headers=self.set_headers())
         if response.status_code != 200:
@@ -34,13 +41,16 @@ class MagaluVMSnapshot:
         return response.json()
 
     def create_snapshot(self, snapshot_data: dict):
+        print(snapshot_data)
         response = httpx.post(
-            f"{self.url}/snapshots", headers=self.headers, json=snapshot_data
+            f"{self.url}/snapshots", headers=self.set_headers(), json=snapshot_data
         )
         result = {"status": response.status_code, "message": response.json()}
         return result
 
     def delete_snapshot(self, id):
-        response = httpx.delete(f"{self.url}/snapshots/{id}", headers=self.headers)
-        result = {"status": response.status_code, "message": response.json()}
+        response = httpx.delete(
+            f"{self.url}/snapshots/{id}", headers=self.set_headers()
+        )
+        result = {"status": response.status_code}
         return result
