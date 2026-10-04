@@ -1,10 +1,11 @@
 # magalu_cloud
 
-Projeto simples para gerenciar instâncias/VMs na API Magalu Cloud.
+Projeto simples para gerenciar instâncias/VMs e snapshots na API Magalu Cloud.
 
-Este repositório contém um utilitário Python (`manage_vms.py`) e exemplos de como
-consumir a API (ex.: listagem de instâncias) usando `httpx`. O objetivo deste README
-é explicar como instalar dependências, configurar variáveis de ambiente e executar o script.
+Este repositório contém utilitários Python (`manage_vms.py` e `manage_snapshots.py`)
+e exemplos de como consumir a API (ex.: listagem de instâncias/snapshots) usando
+`httpx`. O objetivo deste README é explicar como instalar dependências, configurar
+variáveis de ambiente e executar os scripts.
 
 ## Pré-requisitos
 
@@ -40,7 +41,9 @@ cp env.example .env
 
 ## Uso
 
-O script principal é `manage_vms.py`. Os exemplos abaixo mostram como listar instâncias, ligar e desligar uma instância.
+### Gerenciamento de Instâncias (VMs)
+
+O script `manage_vms.py` permite gerenciar instâncias/VMs. Exemplos:
 
 - Listar instâncias:
 
@@ -48,7 +51,7 @@ O script principal é `manage_vms.py`. Os exemplos abaixo mostram como listar in
 uv run manage_vms.py list --region br-se1
 ```
 
-- Iniciar Instância (exemplo):
+- Iniciar Instância:
 
 ```bash
 uv run manage_vms.py start --region br-se1 -i <ID_DA_INSTANCIA>
@@ -58,6 +61,40 @@ uv run manage_vms.py start --region br-se1 -i <ID_DA_INSTANCIA>
 
 ```bash
 uv run manage_vms.py stop --region br-se1 -i <ID_DA_INSTANCIA>
+```
+
+### Gerenciamento de Snapshots
+
+O script `manage_snapshots.py` permite criar, listar e gerenciar snapshots de instâncias.
+
+- Listar todos os snapshots:
+
+```bash
+uv run manage_snapshots.py list --region br-se1
+```
+
+- Recuperar snapshot por ID:
+
+```bash
+uv run manage_snapshots.py get --region br-se1 --snapshot_id <ID_DO_SNAPSHOT>
+```
+
+- Criar snapshot. Cria o snapshot com nome no formato "<snapshot_name>-YYYY-MM-DD":
+
+```bash
+uv run manage_snapshots.py create --region br-se1 --snapshot_name <NOME> --instance_id <ID_DA_INSTANCIA>
+```
+
+- Recuperar snapshot por nome:
+
+```bash
+uv run manage_snapshots.py get_by_name --region br-se1 --snapshot_name <NOME_DO_SNAPSHOT>
+```
+
+- Deletar snapshot:
+
+```bash
+uv run manage_snapshots.py delete --region br-se1 --snapshot_name <NOME_DO_SNAPSHOT>
 ```
 
 ## Contribuição
